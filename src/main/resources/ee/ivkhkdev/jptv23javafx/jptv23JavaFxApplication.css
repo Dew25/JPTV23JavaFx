@@ -1,0 +1,8 @@
+#label{
+    -fx-text-fill: #ea0707;
+}
+.buttons{
+    -fx-background-color: #185639;
+    -fx-text-fill: #cdeb9e;
+    -fx-font-size: 16px;
+}
