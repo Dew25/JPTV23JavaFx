@@ -1,21 +1,27 @@
 package ee.ivkhkdev.jptv23javafx.controller;
 
-import ee.ivkhkdev.jptv23javafx.model.entity.AppUser;
+import ee.ivkhkdev.jptv23javafx.Jptv23JavaFxApplication;
 import ee.ivkhkdev.jptv23javafx.service.UserService;
+import ee.ivkhkdev.jptv23javafx.tools.SpringFXMLLoader;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.springframework.stereotype.Component;
-
-import java.util.Arrays;
+import java.io.IOException;
 
 @Component
 public class RegistrationController {
     public UserService userService;
+    private final SpringFXMLLoader springFXMLLoader;
 
-    public RegistrationController(UserService userService) {
+    public RegistrationController(UserService userService, SpringFXMLLoader springFXMLLoader) {
         this.userService = userService;
+        this.springFXMLLoader = springFXMLLoader;
     }
 
     @FXML private Label lbInfo;
@@ -24,8 +30,25 @@ public class RegistrationController {
     @FXML private TextField tfUsername;
     @FXML private PasswordField pfPassword;
 
-    @FXML private void registrationUser(){
-        AppUser user = userService.add(tfFirstname.getText(), tfLastname.getText(), tfUsername.getText(), pfPassword.getText());
-        lbInfo.setText("Добавлен пользователь "+ user.getUsername()+" с ролью: "+ Arrays.toString(user.getRoles().toArray()));
+    @FXML private void registrationUser() throws IOException {
+        if(userService.add(tfFirstname.getText(), tfLastname.getText(), tfUsername.getText(), pfPassword.getText())){
+            loadLoginForm();
+        }else{
+            lbInfo.setText("Пользователя добавить не удалось");
+        }
+    }
+    private Stage getPrimaryStage(){
+        return Jptv23JavaFxApplication.primaryStage;
+    }
+    private void loadLoginForm() throws IOException {
+        FXMLLoader fxmlLoader = springFXMLLoader.load("/ee/ivkhkdev/jptv23javafx/loginForm/loginForm.fxml");
+        Parent root = fxmlLoader.load();
+        LoginFormController controller = fxmlLoader.getController();
+        controller.setMessage("Пользователь успешно зарегистрирован");
+        Scene scene = new Scene(root);
+        getPrimaryStage().setScene(scene);
+        getPrimaryStage().setTitle("JPTV23 библиотека - Вход");
+        getPrimaryStage().centerOnScreen();
+        getPrimaryStage().show();
     }
 }

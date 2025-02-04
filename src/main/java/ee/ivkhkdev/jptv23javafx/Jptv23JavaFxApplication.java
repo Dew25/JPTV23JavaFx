@@ -1,5 +1,6 @@
 package ee.ivkhkdev.jptv23javafx;
 
+import ee.ivkhkdev.jptv23javafx.model.entity.AppUser;
 import ee.ivkhkdev.jptv23javafx.tools.SpringFXMLLoader;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -15,6 +16,7 @@ import java.io.IOException;
 
 @SpringBootApplication
 public class Jptv23JavaFxApplication extends Application {
+	public static AppUser currentUser;
 	public static Stage primaryStage;
 	private static ConfigurableApplicationContext applicationContext;
 
@@ -25,7 +27,7 @@ public class Jptv23JavaFxApplication extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws IOException {
-		this.primaryStage = primaryStage;
+		Jptv23JavaFxApplication.primaryStage = primaryStage;
 		SpringFXMLLoader springFXMLLoader = applicationContext.getBean(SpringFXMLLoader.class);
 		FXMLLoader fxmlLoader = springFXMLLoader.load("/ee/ivkhkdev/jptv23javafx/loginForm/loginForm.fxml");
 		Parent root = fxmlLoader.load();

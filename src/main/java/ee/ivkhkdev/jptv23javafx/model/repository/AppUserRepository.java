@@ -1,9 +1,12 @@
-package ee.ivkhkdev.jptv23javafx.repository;
+package ee.ivkhkdev.jptv23javafx.model.repository;
 
 import ee.ivkhkdev.jptv23javafx.model.entity.AppUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface AppUserRepository extends JpaRepository<AppUser, Long> {
+    Optional<AppUser> findByUsername(String username);
 }

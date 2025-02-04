@@ -1,6 +1,7 @@
 package ee.ivkhkdev.jptv23javafx.controller;
 
 import ee.ivkhkdev.jptv23javafx.Jptv23JavaFxApplication;
+import ee.ivkhkdev.jptv23javafx.service.UserService;
 import ee.ivkhkdev.jptv23javafx.tools.SpringFXMLLoader;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,17 +17,33 @@ import java.io.IOException;
 
 @Component
 public class LoginFormController {
+    private final UserService userService;
     private SpringFXMLLoader springFXMLLoader;
     @FXML private Label lbInfo;
     @FXML private TextField tfLogin;
     @FXML private PasswordField pfPassword;
 
-    public LoginFormController(SpringFXMLLoader springFXMLLoader) {
+    public LoginFormController(SpringFXMLLoader springFXMLLoader, UserService userService) {
         this.springFXMLLoader = springFXMLLoader;
+        this.userService = userService;
     }
 
-    @FXML private void login(){
-        lbInfo.setText("Нажата кнопка Войти");
+    @FXML private void login() throws IOException {
+        if(userService.authenticate(tfLogin.getText(),pfPassword.getText())){
+            loadMainForm();
+        }else{
+            lbInfo.setText("Нет такого пользователя, или неправильный пароль");
+        }
+    }
+
+    private void loadMainForm() throws IOException {
+        FXMLLoader fxmlLoader = springFXMLLoader.load("/ee/ivkhkdev/jptv23javafx/main/mainForm.fxml");
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root);
+        getPrimaryStage().setScene(scene);
+        getPrimaryStage().setTitle("JPTV23 библиотека - главная");
+        getPrimaryStage().centerOnScreen();
+        getPrimaryStage().show();
     }
 
     @FXML private void registration() throws IOException {
@@ -40,5 +57,8 @@ public class LoginFormController {
     }
     private Stage getPrimaryStage() {
         return Jptv23JavaFxApplication.primaryStage;
+    }
+    public void setMessage(String message){
+        lbInfo.setText(message);
     }
 }
