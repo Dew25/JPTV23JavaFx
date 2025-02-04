@@ -1,7 +1,7 @@
 package ee.ivkhkdev.jptv23javafx.controller;
 
 import ee.ivkhkdev.jptv23javafx.Jptv23JavaFxApplication;
-import ee.ivkhkdev.jptv23javafx.service.UserService;
+import ee.ivkhkdev.jptv23javafx.service.UserServiceImpl;
 import ee.ivkhkdev.jptv23javafx.tools.SpringFXMLLoader;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,10 +16,10 @@ import java.io.IOException;
 
 @Component
 public class RegistrationController {
-    public UserService userService;
+    public UserServiceImpl userService;
     private final SpringFXMLLoader springFXMLLoader;
 
-    public RegistrationController(UserService userService, SpringFXMLLoader springFXMLLoader) {
+    public RegistrationController(UserServiceImpl userService, SpringFXMLLoader springFXMLLoader) {
         this.userService = userService;
         this.springFXMLLoader = springFXMLLoader;
     }
@@ -37,10 +37,12 @@ public class RegistrationController {
             lbInfo.setText("Пользователя добавить не удалось");
         }
     }
+
     private Stage getPrimaryStage(){
         return Jptv23JavaFxApplication.primaryStage;
     }
-    private void loadLoginForm() throws IOException {
+
+    public void loadLoginForm() throws IOException {
         FXMLLoader fxmlLoader = springFXMLLoader.load("/ee/ivkhkdev/jptv23javafx/loginForm/loginForm.fxml");
         Parent root = fxmlLoader.load();
         LoginFormController controller = fxmlLoader.getController();

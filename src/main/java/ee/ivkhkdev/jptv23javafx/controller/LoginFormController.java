@@ -1,7 +1,7 @@
 package ee.ivkhkdev.jptv23javafx.controller;
 
 import ee.ivkhkdev.jptv23javafx.Jptv23JavaFxApplication;
-import ee.ivkhkdev.jptv23javafx.service.UserService;
+import ee.ivkhkdev.jptv23javafx.service.UserServiceImpl;
 import ee.ivkhkdev.jptv23javafx.tools.SpringFXMLLoader;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,13 +17,13 @@ import java.io.IOException;
 
 @Component
 public class LoginFormController {
-    private final UserService userService;
+    private final UserServiceImpl userService;
     private SpringFXMLLoader springFXMLLoader;
     @FXML private Label lbInfo;
     @FXML private TextField tfLogin;
     @FXML private PasswordField pfPassword;
 
-    public LoginFormController(SpringFXMLLoader springFXMLLoader, UserService userService) {
+    public LoginFormController(SpringFXMLLoader springFXMLLoader, UserServiceImpl userService) {
         this.springFXMLLoader = springFXMLLoader;
         this.userService = userService;
     }
