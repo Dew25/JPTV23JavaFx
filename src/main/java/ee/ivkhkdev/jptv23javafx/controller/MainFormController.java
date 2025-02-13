@@ -25,6 +25,7 @@ import java.util.Set;
 public class MainFormController implements Initializable {
     private BookService bookService;
     private AuthorService authorService;
+    @FXML private TableView<Book> tvListBooks;
     @FXML private TableColumn<Book,String> tcId;
     @FXML private TableColumn<Book,String> tcTitle;
     @FXML private TableColumn<Book,String> tcAuthors;
@@ -36,7 +37,6 @@ public class MainFormController implements Initializable {
         this.authorService = authorService;
     }
 
-    @FXML private TableView<Book> tvListBooks;
 
     private void saveBooks(){
         Author author = new Author();
@@ -48,11 +48,23 @@ public class MainFormController implements Initializable {
         book.setCount(2);
         book.setPublicationYear(2000);
         book.setQuantity(2);
-        book.getAuthors().add(author);
         book.getAuthors().add(optionalAuthor.get());
         Optional<Book> optionalBook = bookService.add(book);
         author.getBooks().add(optionalBook.get());
         authorService.add(author);
+        Author author2 = new Author();
+        author2.setFirstname("Иван");
+        author2.setLastname("Тургенев");
+        Optional<Author> optionalAuthor2 = authorService.add(author2);
+        Book book2 = new Book();
+        book2.setTitle("Отцы и дети");
+        book2.setCount(3);
+        book2.setPublicationYear(2001);
+        book2.setQuantity(3);
+        book2.getAuthors().add(optionalAuthor2.get());
+        Optional<Book> optionalBook2 = bookService.add(book2);
+        author2.getBooks().add(optionalBook2.get());
+        authorService.add(author2);
 
     }
     @Override
