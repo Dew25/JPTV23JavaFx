@@ -1,6 +1,8 @@
 package ee.ivkhkdev.jptv23javafx.controller;
 
 import ee.ivkhkdev.jptv23javafx.Jptv23JavaFxApplication;
+import ee.ivkhkdev.jptv23javafx.model.entity.AppUser;
+import ee.ivkhkdev.jptv23javafx.service.UserService;
 import ee.ivkhkdev.jptv23javafx.service.UserServiceImpl;
 import ee.ivkhkdev.jptv23javafx.tools.SpringFXMLLoader;
 import javafx.fxml.FXML;
@@ -16,10 +18,10 @@ import java.io.IOException;
 
 @Component
 public class RegistrationController {
-    public UserServiceImpl userService;
+    public UserService userService;
     private final SpringFXMLLoader springFXMLLoader;
 
-    public RegistrationController(UserServiceImpl userService, SpringFXMLLoader springFXMLLoader) {
+    public RegistrationController(UserService userService, SpringFXMLLoader springFXMLLoader) {
         this.userService = userService;
         this.springFXMLLoader = springFXMLLoader;
     }
@@ -31,7 +33,13 @@ public class RegistrationController {
     @FXML private PasswordField pfPassword;
 
     @FXML private void registrationUser() throws IOException {
-        if(userService.add(tfFirstname.getText(), tfLastname.getText(), tfUsername.getText(), pfPassword.getText())){
+        AppUser appUser = new AppUser();
+        appUser.setFirstname(tfFirstname.getText());
+        appUser.setLastname(tfLastname.getText());
+        appUser.setUsername(tfUsername.getText());
+        appUser.setPassword(pfPassword.getText());
+        appUser.getRoles().add(Jptv23JavaFxApplication.ROLES.USER.toString());
+        if(userService.add(appUser)){
             loadLoginForm();
         }else{
             lbInfo.setText("Пользователя добавить не удалось");

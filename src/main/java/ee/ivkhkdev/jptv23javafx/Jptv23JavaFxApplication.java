@@ -16,6 +16,7 @@ import java.io.IOException;
 
 @SpringBootApplication
 public class Jptv23JavaFxApplication extends Application {
+	public enum ROLES {USER,MANAGER,ADMINISTRATOR};
 	public static AppUser currentUser;
 	public static Stage primaryStage;
 	private static ConfigurableApplicationContext applicationContext;

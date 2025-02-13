@@ -5,6 +5,8 @@ import ee.ivkhkdev.jptv23javafx.model.entity.Book;
 import ee.ivkhkdev.jptv23javafx.model.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 @Service
 public class BookServiceImpl implements BookService {
@@ -14,13 +16,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public boolean add(String firstname, Set<Author> authors, int publicationYear, int quantity, int count) {
-        Book book = new Book();
-        book.setAuthors(authors);
-        book.setPublicationYear(publicationYear);
-        book.setQuantity(quantity);
-        book.setCount(count);
-        bookRepository.save(book);
-        return true;
+    public Optional<Book> add(Book book) {
+        return Optional.of(bookRepository.save(book));
+    }
+
+    @Override
+    public List<Book> loadAll() {
+        return bookRepository.findAll();
     }
 }

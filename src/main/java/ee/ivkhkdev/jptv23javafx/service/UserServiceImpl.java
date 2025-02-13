@@ -11,15 +11,14 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
-    public enum ROLES {USER,MANAGER,ADMINISTRATOR};
+
     private final AppUserRepository appUserRepository;
 
     public UserServiceImpl(AppUserRepository appUserRepository) {
         this.appUserRepository = appUserRepository;
     }
     @Override
-    public boolean add(String firstname,String lastname, String username, String password) {
-        AppUser user = new AppUser(firstname,lastname,username,password,ROLES.USER.toString());
+    public boolean add(AppUser user) {
         Optional<AppUser> optionalAppUser = Optional.of(appUserRepository.save(user));
         if(optionalAppUser.isEmpty()){
             return false;
