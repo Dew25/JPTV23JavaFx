@@ -53,8 +53,6 @@ public class RegistrationController {
     public void loadLoginForm() throws IOException {
         FXMLLoader fxmlLoader = springFXMLLoader.load("/ee/ivkhkdev/jptv23javafx/loginForm/loginForm.fxml");
         Parent root = fxmlLoader.load();
-        LoginFormController controller = fxmlLoader.getController();
-        controller.setMessage("Пользователь успешно зарегистрирован");
         Scene scene = new Scene(root);
         getPrimaryStage().setScene(scene);
         getPrimaryStage().setTitle("JPTV23 библиотека - Вход");

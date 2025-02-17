@@ -1,6 +1,7 @@
 package ee.ivkhkdev.jptv23javafx;
 
 import ee.ivkhkdev.jptv23javafx.model.entity.AppUser;
+import ee.ivkhkdev.jptv23javafx.service.FormService;
 import ee.ivkhkdev.jptv23javafx.tools.SpringFXMLLoader;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -27,16 +28,10 @@ public class Jptv23JavaFxApplication extends Application {
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws IOException {
+	public void start(Stage primaryStage) {
 		Jptv23JavaFxApplication.primaryStage = primaryStage;
-		SpringFXMLLoader springFXMLLoader = applicationContext.getBean(SpringFXMLLoader.class);
-		FXMLLoader fxmlLoader = springFXMLLoader.load("/ee/ivkhkdev/jptv23javafx/loginForm/loginForm.fxml");
-		Parent root = fxmlLoader.load();
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.setTitle("JPTV23 библиотека");
-		primaryStage.centerOnScreen();
-		primaryStage.show();
+		FormService formService = applicationContext.getBean(FormService.class);
+		formService.loadLoginForm();
 	}
 
 	@Override
