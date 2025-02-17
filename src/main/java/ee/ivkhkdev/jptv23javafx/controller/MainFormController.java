@@ -4,27 +4,30 @@ import ee.ivkhkdev.jptv23javafx.model.entity.Author;
 import ee.ivkhkdev.jptv23javafx.model.entity.Book;
 import ee.ivkhkdev.jptv23javafx.service.AuthorService;
 import ee.ivkhkdev.jptv23javafx.service.BookService;
+import ee.ivkhkdev.jptv23javafx.service.FormService;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 import org.springframework.stereotype.Component;
-
 import java.net.URL;
-import java.util.HashSet;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Set;
 
 @Component
 public class MainFormController implements Initializable {
+    private FormService formService;
     private BookService bookService;
     private AuthorService authorService;
+
+    @FXML private VBox vbMainRoot;
     @FXML private TableView<Book> tvListBooks;
     @FXML private TableColumn<Book,String> tcId;
     @FXML private TableColumn<Book,String> tcTitle;
@@ -32,7 +35,9 @@ public class MainFormController implements Initializable {
     @FXML private TableColumn<Book,String> tcPublicationYear;
     @FXML private TableColumn<Book,String> tcQuantity;
     @FXML private TableColumn<Book,String> tcCount;
-    public MainFormController(BookService bookService, AuthorService authorService) {
+
+    public MainFormController(FormService formService, BookService bookService, AuthorService authorService) {
+        this.formService = formService;
         this.bookService = bookService;
         this.authorService = authorService;
     }
@@ -69,6 +74,8 @@ public class MainFormController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Parent vbMenuRoot = formService.loadMenuForm();
+        vbMainRoot.getChildren().addFirst(vbMenuRoot);
         saveBooks();
         ObservableList<Book> books = FXCollections.observableArrayList();
         books.addAll(bookService.loadAll());

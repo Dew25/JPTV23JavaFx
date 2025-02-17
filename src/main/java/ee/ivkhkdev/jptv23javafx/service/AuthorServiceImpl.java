@@ -5,6 +5,7 @@ import ee.ivkhkdev.jptv23javafx.model.entity.Book;
 import ee.ivkhkdev.jptv23javafx.model.repository.AuthorRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,6 +19,11 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public Optional<Author> add(Author author) {
             return Optional.of(authorRepository.save(author));
+    }
+
+    @Override
+    public List<Author> loadAll() {
+        return authorRepository.findAll();
     }
 
 
