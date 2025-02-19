@@ -2,6 +2,7 @@ package ee.ivkhkdev.jptv23javafx.controller;
 
 import ee.ivkhkdev.jptv23javafx.Jptv23JavaFxApplication;
 import ee.ivkhkdev.jptv23javafx.model.entity.AppUser;
+import ee.ivkhkdev.jptv23javafx.service.FormService;
 import ee.ivkhkdev.jptv23javafx.service.UserService;
 import ee.ivkhkdev.jptv23javafx.service.UserServiceImpl;
 import ee.ivkhkdev.jptv23javafx.tools.SpringFXMLLoader;
@@ -19,11 +20,11 @@ import java.io.IOException;
 @Component
 public class RegistrationController {
     public UserService userService;
-    private final SpringFXMLLoader springFXMLLoader;
+    private final FormService formService;
 
-    public RegistrationController(UserService userService, SpringFXMLLoader springFXMLLoader) {
+    public RegistrationController(UserService userService, FormService formService) {
         this.userService = userService;
-        this.springFXMLLoader = springFXMLLoader;
+        this.formService = formService;
     }
 
     @FXML private Label lbInfo;
@@ -40,23 +41,13 @@ public class RegistrationController {
         appUser.setPassword(pfPassword.getText());
         appUser.getRoles().add(Jptv23JavaFxApplication.ROLES.USER.toString());
         if(userService.add(appUser)){
-            loadLoginForm();
+            formService.loadLoginForm();
         }else{
             lbInfo.setText("Пользователя добавить не удалось");
         }
     }
-
-    private Stage getPrimaryStage(){
-        return Jptv23JavaFxApplication.primaryStage;
+    @FXML private void goToLoginForm(){
+        formService.loadLoginForm();
     }
 
-    public void loadLoginForm() throws IOException {
-        FXMLLoader fxmlLoader = springFXMLLoader.load("/ee/ivkhkdev/jptv23javafx/loginForm/loginForm.fxml");
-        Parent root = fxmlLoader.load();
-        Scene scene = new Scene(root);
-        getPrimaryStage().setScene(scene);
-        getPrimaryStage().setTitle("JPTV23 библиотека - Вход");
-        getPrimaryStage().centerOnScreen();
-        getPrimaryStage().show();
-    }
 }

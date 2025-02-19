@@ -15,6 +15,7 @@ import java.io.IOException;
 public class LoginFormController {
     private final UserServiceImpl userService;
     private FormService formService;
+
     @FXML private Label lbInfo;
     @FXML private TextField tfLogin;
     @FXML private PasswordField pfPassword;

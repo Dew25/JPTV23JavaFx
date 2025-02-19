@@ -9,17 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox maxHeight="-Infinity"
-      maxWidth="-Infinity"
-      minHeight="-Infinity"
-      minWidth="-Infinity"
-      prefHeight="306.0"
-      prefWidth="464.0"
-      xmlns="http://javafx.com/javafx/20.0.2"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="ee.ivkhkdev.jptv23javafx.controller.RegistrationController"
->
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="306.0" prefWidth="464.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ee.ivkhkdev.jptv23javafx.controller.RegistrationController">
    <children>
       <Label alignment="BOTTOM_CENTER" prefHeight="68.0" prefWidth="445.0" text="Регистрация пользователя">
          <font>
@@ -67,9 +57,10 @@
             <PasswordField fx:id="pfPassword" prefHeight="25.0" prefWidth="220.0" />
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="197.0" prefHeight="39.0" prefWidth="445.0">
+      <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="197.0" prefHeight="39.0" prefWidth="445.0" spacing="3.0">
          <children>
-            <Label prefHeight="17.0" prefWidth="160.0" />
+            <Label prefHeight="17.0" prefWidth="117.0" />
+            <Button mnemonicParsing="false" onAction="#goToLoginForm" text="&lt;&lt;" />
             <Button mnemonicParsing="false" onAction="#registrationUser" prefHeight="25.0" prefWidth="167.0" text="Зарегистрироваться" />
          </children>
       </HBox>

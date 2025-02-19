@@ -76,7 +76,9 @@ public class MainFormController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Parent vbMenuRoot = formService.loadMenuForm();
         vbMainRoot.getChildren().addFirst(vbMenuRoot);
-        saveBooks();
+        if(authorService.loadAll().isEmpty()){
+            saveBooks();
+        }
         ObservableList<Book> books = FXCollections.observableArrayList();
         books.addAll(bookService.loadAll());
         tvListBooks.setItems(books);
