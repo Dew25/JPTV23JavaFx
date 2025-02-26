@@ -16,6 +16,21 @@ public class UserServiceImpl implements UserService {
 
     public UserServiceImpl(AppUserRepository appUserRepository) {
         this.appUserRepository = appUserRepository;
+        initSuperAdmin();
+    }
+    public void initSuperAdmin(){
+        if(appUserRepository.count() > 0){
+            return;
+        }
+        AppUser admin = new AppUser();
+        admin.setUsername("admin");
+        admin.setPassword("12345");
+        admin.setFirstname("Admin");
+        admin.setLastname("Superadmin");
+        admin.getRoles().add(Jptv23JavaFxApplication.ROLES.ADMINISTRATOR.toString());
+        admin.getRoles().add(Jptv23JavaFxApplication.ROLES.MANAGER.toString());
+        admin.getRoles().add(Jptv23JavaFxApplication.ROLES.USER.toString());
+        appUserRepository.save(admin);
     }
     @Override
     public boolean add(AppUser user) {

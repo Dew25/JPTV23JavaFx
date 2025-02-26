@@ -72,6 +72,24 @@ public class MainFormController implements Initializable {
         authorService.add(author2);
 
     }
+    @FXML private void handleDoubleClick(javafx.scene.input.MouseEvent event){
+        if (event.getClickCount() == 2) { // Проверяем, что это двойной клик
+            Book selectedBook = tvListBooks.getSelectionModel().getSelectedItem();
+            if (selectedBook != null) {
+                showBookDetails(selectedBook);
+            }
+        }
+    }
+    private void showBookDetails(Book book) {
+        try {
+            // Загрузка FXML файла для модального окна
+            formService.loadSelectedBookFormModal(book);
+            // Обновляем данные в таблице после закрытия модального окна
+            tvListBooks.refresh();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Parent vbMenuRoot = formService.loadMenuForm();

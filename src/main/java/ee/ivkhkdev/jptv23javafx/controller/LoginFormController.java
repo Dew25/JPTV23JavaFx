@@ -2,6 +2,7 @@ package ee.ivkhkdev.jptv23javafx.controller;
 
 import ee.ivkhkdev.jptv23javafx.Jptv23JavaFxApplication;
 import ee.ivkhkdev.jptv23javafx.service.FormService;
+import ee.ivkhkdev.jptv23javafx.service.UserService;
 import ee.ivkhkdev.jptv23javafx.service.UserServiceImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -13,19 +14,19 @@ import java.io.IOException;
 
 @Component
 public class LoginFormController {
-    private final UserServiceImpl userService;
+    private final UserService userService;
     private FormService formService;
 
     @FXML private Label lbInfo;
     @FXML private TextField tfLogin;
     @FXML private PasswordField pfPassword;
 
-    public LoginFormController(FormService formService, UserServiceImpl userService) {
+    public LoginFormController(FormService formService, UserService userService) {
         this.formService = formService;
         this.userService = userService;
     }
 
-    @FXML private void login() throws IOException {
+    @FXML private void login() {
         if(userService.authenticate(tfLogin.getText(),pfPassword.getText())){
             formService.loadMainForm();
         }else{

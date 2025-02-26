@@ -1,10 +1,13 @@
 package ee.ivkhkdev.jptv23javafx.service;
 
 import ee.ivkhkdev.jptv23javafx.Jptv23JavaFxApplication;
+import ee.ivkhkdev.jptv23javafx.controller.SelectedBookFormController;
+import ee.ivkhkdev.jptv23javafx.model.entity.Book;
 import ee.ivkhkdev.jptv23javafx.tools.SpringFXMLLoader;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.springframework.stereotype.Service;
 
@@ -48,7 +51,7 @@ public class FormService {
         getPrimaryStage().setScene(scene);
         getPrimaryStage().setTitle("JPTV23 библиотека - главная");
         getPrimaryStage().centerOnScreen();
-        getPrimaryStage().show();
+        //getPrimaryStage().show();
     }
     public void loadRegistrationForm() {
         FXMLLoader fxmlLoader = springFXMLLoader.load("/ee/ivkhkdev/jptv23javafx/registration/registration.fxml");
@@ -100,5 +103,22 @@ public class FormService {
         getPrimaryStage().setTitle("JPTV23 библиотека - добавление книги");
         getPrimaryStage().centerOnScreen();
         getPrimaryStage().show();
+    }
+
+    public void loadSelectedBookFormModal(Book book) {
+        FXMLLoader fxmlLoader = springFXMLLoader.load("/ee/ivkhkdev/jptv23javafx/book/selectedBookForm.fxml");
+        Parent root = null;
+        try {
+            root = fxmlLoader.load();
+            SelectedBookFormController controller = fxmlLoader.getController();
+            controller.setBook(book);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        getPrimaryStage().initModality(Modality.APPLICATION_MODAL);
+        getPrimaryStage().setTitle("Book Details");
+        getPrimaryStage().setScene(new Scene(root));
+        getPrimaryStage().showAndWait(); // Блокируем основное окно
+
     }
 }
