@@ -115,10 +115,11 @@ public class FormService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        getPrimaryStage().initModality(Modality.APPLICATION_MODAL);
-        getPrimaryStage().setTitle("Book Details");
-        getPrimaryStage().setScene(new Scene(root));
-        getPrimaryStage().showAndWait(); // Блокируем основное окно
+        Stage modalStage = new Stage();
+        modalStage.initModality(Modality.APPLICATION_MODAL);
+        modalStage.setTitle("Book Details");
+        modalStage.setScene(new Scene(root));
+        modalStage.showAndWait(); // Блокируем основное окно
 
     }
 }
