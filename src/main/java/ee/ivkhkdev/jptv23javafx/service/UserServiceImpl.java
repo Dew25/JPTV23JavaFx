@@ -3,9 +3,9 @@ package ee.ivkhkdev.jptv23javafx.service;
 import ee.ivkhkdev.jptv23javafx.Jptv23JavaFxApplication;
 import ee.ivkhkdev.jptv23javafx.model.entity.AppUser;
 import ee.ivkhkdev.jptv23javafx.model.repository.AppUserRepository;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,12 +33,13 @@ public class UserServiceImpl implements UserService {
         appUserRepository.save(admin);
     }
     @Override
-    public boolean add(AppUser user) {
-        Optional<AppUser> optionalAppUser = Optional.of(appUserRepository.save(user));
-        if(optionalAppUser.isEmpty()){
-            return false;
-        }
-        return true;
+    public Optional<AppUser> add(AppUser user) {
+        return Optional.of(appUserRepository.save(user));
+    }
+
+    @Override
+    public List<AppUser> loadAll() {
+        return appUserRepository.findAll();
     }
 
     @Override

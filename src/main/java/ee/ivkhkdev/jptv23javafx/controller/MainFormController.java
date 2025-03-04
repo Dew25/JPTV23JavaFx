@@ -43,7 +43,7 @@ public class MainFormController implements Initializable {
     }
 
 
-    private void saveBooks(){
+    private void saveTwoBooksForTest(){
         Author author = new Author();
         author.setFirstname("Lev");
         author.setLastname("Tolstoy");
@@ -72,6 +72,13 @@ public class MainFormController implements Initializable {
         authorService.add(author2);
 
     }
+
+    /**
+     * Функция связанная с таблицей книг
+     * Обрабатывает двойннй клик на строке
+     * Запускает showBookDetails, которая открывает модальное окно с выбранной книгой
+     */
+
     @FXML private void handleDoubleClick(javafx.scene.input.MouseEvent event){
         if (event.getClickCount() == 2) { // Проверяем, что это двойной клик
             Book selectedBook = tvListBooks.getSelectionModel().getSelectedItem();
@@ -92,16 +99,24 @@ public class MainFormController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //Загружаем форму меню
         Parent vbMenuRoot = formService.loadMenuForm();
+        // и добавляем ее в VBox первым элементом
         vbMainRoot.getChildren().addFirst(vbMenuRoot);
+        //если книг нет, то добавляем две книги для тестирования
         if(authorService.loadAll().isEmpty()){
-            saveBooks();
+            saveTwoBooksForTest();
         }
+        // Добавляем список книг в таблицу
         ObservableList<Book> books = FXCollections.observableArrayList();
         books.addAll(bookService.loadAll());
         tvListBooks.setItems(books);
+        // Настраиваем отображение полей книги в колонках таблицы
         tcId.setCellValueFactory(new PropertyValueFactory<>("id"));
         tcTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        // С множеством авторов: формируем строку из имен и фамилий авторов
+        // (с помощью стрелочной функции)
+        // и добавляем ее в отображение ячейки таблицы
         tcAuthors.setCellValueFactory(cellData -> {
             Set<Author> authors = cellData.getValue().getAuthors();
             if (authors == null || authors.isEmpty()) {

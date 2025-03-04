@@ -40,7 +40,7 @@ public class RegistrationController {
         appUser.setUsername(tfUsername.getText());
         appUser.setPassword(pfPassword.getText());
         appUser.getRoles().add(Jptv23JavaFxApplication.ROLES.USER.toString());
-        if(userService.add(appUser)){
+        if(userService.add(appUser).isPresent()){
             formService.loadLoginForm();
         }else{
             lbInfo.setText("Пользователя добавить не удалось");

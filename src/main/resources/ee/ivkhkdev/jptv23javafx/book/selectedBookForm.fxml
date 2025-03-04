@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox prefHeight="527.0" prefWidth="279.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ee.ivkhkdev.jptv23javafx.controller.SelectedBookFormController">
+<VBox prefHeight="527.0" prefWidth="279.0" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ee.ivkhkdev.jptv23javafx.controller.SelectedBookFormController">
    <children>
-      <ImageView fitHeight="439.0" fitWidth="330.0" pickOnBounds="true" preserveRatio="true" />
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+      <ImageView fx:id="ivCover" fitHeight="438.0" fitWidth="330.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../pics/Voina_i_mir.jpg" />
+         </image></ImageView>
+      <HBox alignment="CENTER" prefHeight="93.0" prefWidth="330.0" spacing="5.0">
          <children>
             <Button fx:id="btTakeOnBook" mnemonicParsing="false" onAction="#tackeOnBook" text="Читать книгу" />
             <Button fx:id="btReturnBook" mnemonicParsing="false" onAction="#returnBook" text="Вернуть кнгигу" />
